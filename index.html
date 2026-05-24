@@ -1,0 +1,1625 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pindah Kantor Tanpa Panik</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,300;1,9..144,400&family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #16324F;
+    --navy-deep: #0e2135;
+    --green: #3F6B4F;
+    --gold: #C8964E;
+    --gold-light: #dba96a;
+    --offwhite: #F5F2EE;
+    --greige: #E8E3DC;
+    --text-dark: #1A1A1A;
+    --text-mid: #5A5A5A;
+    --text-light: #8a8480;
+    --white: #ffffff;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    background: var(--offwhite);
+    color: var(--text-dark);
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── TYPOGRAPHY ── */
+  .font-display { font-family: 'Fraunces', serif; }
+
+  h1, h2, h3 { font-family: 'Fraunces', serif; line-height: 1.1; }
+
+  /* ── UTILS ── */
+  .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+  .container--narrow { max-width: 680px; margin: 0 auto; padding: 0 24px; }
+
+  /* ── REVEAL ANIMATION ── */
+  .reveal {
+    opacity: 0;
+    transform: translateY(36px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+  .reveal-delay-1 { transition-delay: 0.1s; }
+  .reveal-delay-2 { transition-delay: 0.2s; }
+  .reveal-delay-3 { transition-delay: 0.3s; }
+  .reveal-delay-4 { transition-delay: 0.4s; }
+  .reveal-delay-5 { transition-delay: 0.5s; }
+
+  /* ══════════════════════════════════════
+     1. HERO SECTION
+  ══════════════════════════════════════ */
+  .hero {
+    background: var(--navy);
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: stretch;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at 20% 50%, rgba(200,150,78,0.08) 0%, transparent 60%);
+    pointer-events: none;
+  }
+
+  .hero__copy {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 80px 56px 80px 64px;
+    position: relative;
+    z-index: 2;
+  }
+
+  .hero__eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--gold);
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 28px;
+    opacity: 0;
+    animation: fadeUp 0.7s ease 0.1s forwards;
+  }
+
+  .hero__eyebrow::before {
+    content: '';
+    width: 28px;
+    height: 1px;
+    background: var(--gold);
+  }
+
+  .hero__headline {
+    font-size: clamp(42px, 5vw, 64px);
+    color: var(--white);
+    margin-bottom: 24px;
+    opacity: 0;
+    animation: fadeUp 0.7s ease 0.25s forwards;
+    font-weight: 700;
+  }
+
+  .hero__headline em {
+    font-style: italic;
+    color: var(--gold);
+  }
+
+  .hero__sub {
+    font-size: 17px;
+    line-height: 1.7;
+    color: rgba(255,255,255,0.72);
+    margin-bottom: 40px;
+    max-width: 460px;
+    opacity: 0;
+    animation: fadeUp 0.7s ease 0.4s forwards;
+  }
+
+  .hero__cta-wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    opacity: 0;
+    animation: fadeUp 0.7s ease 0.55s forwards;
+  }
+
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    background: var(--gold);
+    color: var(--navy-deep);
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    padding: 18px 36px;
+    border-radius: 4px;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background 0.25s, transform 0.2s;
+    animation: pulse-glow 2.8s ease-in-out infinite;
+    width: fit-content;
+  }
+
+  .btn-primary:hover { background: var(--gold-light); transform: translateY(-2px); }
+
+  @keyframes pulse-glow {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(200, 150, 78, 0.5); }
+    50%       { box-shadow: 0 0 0 14px rgba(200, 150, 78, 0); }
+  }
+
+  .hero__trust {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    font-size: 13px;
+    color: rgba(255,255,255,0.45);
+  }
+
+  .hero__trust-item {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+
+  .hero__trust-item svg { flex-shrink: 0; }
+
+  .hero__image {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero__image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top center;
+    display: block;
+    opacity: 0;
+    animation: imgReveal 1s ease 0.3s forwards;
+  }
+
+  .hero__image::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to right, var(--navy) 0%, transparent 20%);
+  }
+
+  @keyframes imgReveal {
+    from { opacity: 0; transform: scale(1.03); }
+    to   { opacity: 1; transform: scale(1); }
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ══════════════════════════════════════
+     3. PROBLEM AGITATION
+  ══════════════════════════════════════ */
+  .problem {
+    background: var(--offwhite);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .problem__inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    min-height: 640px;
+  }
+
+  .problem__image {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .problem__image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center top;
+    display: block;
+    filter: saturate(0.8);
+  }
+
+  .problem__image::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to left, var(--offwhite) 0%, transparent 20%);
+  }
+
+  .problem__copy {
+    padding: 96px 64px 96px 56px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .section-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+  }
+
+  .section-label--navy { color: var(--navy); }
+  .section-label--gold { color: var(--gold); }
+  .section-label--green { color: var(--green); }
+
+  .section-label::before {
+    content: '';
+    width: 20px;
+    height: 2px;
+    background: currentColor;
+  }
+
+  .problem__headline {
+    font-size: clamp(32px, 3.5vw, 44px);
+    color: var(--navy);
+    margin-bottom: 28px;
+    font-weight: 700;
+  }
+
+  .problem__text {
+    font-size: 16px;
+    line-height: 1.8;
+    color: var(--text-mid);
+    margin-bottom: 16px;
+  }
+
+  .problem__text strong { color: var(--text-dark); font-weight: 600; }
+
+  .problem__quote {
+    margin-top: 32px;
+    padding: 24px 28px;
+    background: var(--greige);
+    border-left: 3px solid var(--gold);
+    border-radius: 0 4px 4px 0;
+  }
+
+  .problem__quote p {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 18px;
+    line-height: 1.6;
+    color: var(--navy);
+  }
+
+  /* ══════════════════════════════════════
+     4. REFRAME / INSIGHT
+  ══════════════════════════════════════ */
+  .reframe {
+    background: var(--navy);
+    padding: 96px 0;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .reframe::before {
+    content: '';
+    position: absolute;
+    width: 500px;
+    height: 500px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(63,107,79,0.2) 0%, transparent 70%);
+    top: -100px;
+    right: -100px;
+    pointer-events: none;
+  }
+
+  .reframe__inner {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 0 24px;
+    text-align: center;
+  }
+
+  .reframe__headline {
+    font-size: clamp(32px, 4vw, 48px);
+    color: var(--white);
+    margin-bottom: 24px;
+    font-weight: 600;
+  }
+
+  .reframe__headline em {
+    font-style: italic;
+    color: var(--gold);
+  }
+
+  .reframe__text {
+    font-size: 17px;
+    line-height: 1.8;
+    color: rgba(255,255,255,0.7);
+    margin-bottom: 16px;
+  }
+
+  .reframe__divider {
+    width: 48px;
+    height: 2px;
+    background: var(--gold);
+    margin: 40px auto;
+  }
+
+  .reframe__callout {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(22px, 2.5vw, 30px);
+    color: var(--white);
+    line-height: 1.5;
+    font-weight: 300;
+  }
+
+  .reframe__callout strong {
+    font-weight: 700;
+    color: var(--gold);
+  }
+
+  /* ══════════════════════════════════════
+     5. SOCIAL PROOF
+  ══════════════════════════════════════ */
+  .social-proof {
+    background: var(--greige);
+    padding: 96px 0;
+    position: relative;
+  }
+
+  .social-proof__header {
+    text-align: center;
+    margin-bottom: 64px;
+  }
+
+  .social-proof__title {
+    font-size: clamp(28px, 3.5vw, 40px);
+    color: var(--navy);
+    margin-bottom: 12px;
+  }
+
+  .social-proof__subtitle {
+    font-size: 16px;
+    color: var(--text-mid);
+  }
+
+  .testimonials-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+
+  .testimonial-card {
+    background: var(--white);
+    border-radius: 8px;
+    padding: 36px 32px;
+    position: relative;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .testimonial-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 20px 48px rgba(22,50,79,0.1);
+  }
+
+  .testimonial-card::before {
+    content: '\201C';
+    font-family: 'Fraunces', serif;
+    font-size: 80px;
+    color: var(--gold);
+    opacity: 0.3;
+    position: absolute;
+    top: 12px;
+    left: 28px;
+    line-height: 1;
+  }
+
+  .testimonial-card__text {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 16px;
+    line-height: 1.75;
+    color: var(--text-dark);
+    margin-bottom: 28px;
+    padding-top: 32px;
+  }
+
+  .testimonial-card__meta {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .testimonial-card__avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: var(--navy);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--white);
+    font-weight: 700;
+    font-size: 15px;
+    flex-shrink: 0;
+  }
+
+  .testimonial-card__name {
+    font-weight: 700;
+    font-size: 14px;
+    color: var(--navy);
+  }
+
+  .testimonial-card__role {
+    font-size: 12px;
+    color: var(--text-mid);
+    margin-top: 2px;
+  }
+
+  .testimonial-card__result {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(63,107,79,0.1);
+    color: var(--green);
+    font-size: 12px;
+    font-weight: 600;
+    padding: 4px 10px;
+    border-radius: 20px;
+    margin-top: 8px;
+  }
+
+  /* ══════════════════════════════════════
+     6. WHAT YOU GET
+  ══════════════════════════════════════ */
+  .what-you-get {
+    background: var(--navy);
+    padding: 96px 0;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .what-you-get::after {
+    content: '';
+    position: absolute;
+    bottom: -120px;
+    left: -120px;
+    width: 400px;
+    height: 400px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(200,150,78,0.1) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .what-you-get__header {
+    text-align: center;
+    margin-bottom: 64px;
+  }
+
+  .what-you-get__title {
+    font-size: clamp(28px, 3.5vw, 42px);
+    color: var(--white);
+    margin-bottom: 12px;
+  }
+
+  .what-you-get__subtitle {
+    font-size: 16px;
+    color: rgba(255,255,255,0.6);
+  }
+
+  .checklist-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+    margin-bottom: 64px;
+  }
+
+  .checklist-item {
+    display: flex;
+    gap: 16px;
+    padding: 24px;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 8px;
+    transition: background 0.25s, border-color 0.25s;
+  }
+
+  .checklist-item:hover {
+    background: rgba(255,255,255,0.08);
+    border-color: rgba(200,150,78,0.3);
+  }
+
+  .checklist-item__icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: rgba(200,150,78,0.15);
+    border: 1px solid rgba(200,150,78,0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    color: var(--gold);
+    font-size: 15px;
+    font-weight: 700;
+  }
+
+  .checklist-item__title {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--white);
+    margin-bottom: 4px;
+  }
+
+  .checklist-item__desc {
+    font-size: 13px;
+    line-height: 1.6;
+    color: rgba(255,255,255,0.55);
+  }
+
+  /* Mockup / Product Stack */
+  .mockup-section {
+    margin-top: 16px;
+  }
+
+  .mockup-label {
+    text-align: center;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 32px;
+  }
+
+  .mockup-stack {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr 1fr 1fr;
+    gap: 16px;
+    align-items: end;
+  }
+
+  .mockup-cover {
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 24px 56px rgba(0,0,0,0.5);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: default;
+  }
+
+  .mockup-cover:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 36px 72px rgba(0,0,0,0.6);
+  }
+
+  .mockup-cover img {
+    width: 100%;
+    display: block;
+  }
+
+  .mockup-cover--main { transform: translateY(0); }
+
+  .mockup-cover--bonus {
+    transform: translateY(16px);
+  }
+
+  .mockup-cover--bonus:hover {
+    transform: translateY(8px);
+  }
+
+  .mockup-cover__label {
+    background: rgba(22,50,79,0.9);
+    padding: 10px 14px;
+    text-align: center;
+  }
+
+  .mockup-cover__label span {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.7);
+  }
+
+  .mockup-cover__label span.main-label {
+    color: var(--gold);
+  }
+
+  /* ══════════════════════════════════════
+     7. HOW IT WORKS
+  ══════════════════════════════════════ */
+  .how-it-works {
+    background: var(--offwhite);
+    padding: 96px 0;
+  }
+
+  .how-it-works__header {
+    text-align: center;
+    margin-bottom: 64px;
+  }
+
+  .how-it-works__title {
+    font-size: clamp(28px, 3.5vw, 42px);
+    color: var(--navy);
+    margin-bottom: 12px;
+  }
+
+  .how-it-works__subtitle {
+    font-size: 16px;
+    color: var(--text-mid);
+  }
+
+  .steps {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0;
+    position: relative;
+    max-width: 880px;
+    margin: 0 auto;
+  }
+
+  .steps::before {
+    content: '';
+    position: absolute;
+    top: 40px;
+    left: calc(16.66% + 20px);
+    right: calc(16.66% + 20px);
+    height: 1px;
+    background: linear-gradient(to right, var(--gold) 0%, var(--green) 100%);
+    opacity: 0.4;
+  }
+
+  .step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 0 32px;
+  }
+
+  .step__number {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background: var(--navy);
+    color: var(--white);
+    font-family: 'Fraunces', serif;
+    font-size: 32px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 24px;
+    position: relative;
+    z-index: 1;
+    box-shadow: 0 8px 24px rgba(22,50,79,0.2);
+    transition: background 0.3s, transform 0.3s;
+  }
+
+  .step:hover .step__number {
+    background: var(--gold);
+    color: var(--navy);
+    transform: scale(1.08);
+  }
+
+  .step__title {
+    font-family: 'Fraunces', serif;
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--navy);
+    margin-bottom: 12px;
+  }
+
+  .step__desc {
+    font-size: 15px;
+    line-height: 1.7;
+    color: var(--text-mid);
+  }
+
+  .step__icon {
+    font-size: 22px;
+    margin-bottom: 8px;
+  }
+
+  /* ══════════════════════════════════════
+     8. SECOND SOCIAL PROOF
+  ══════════════════════════════════════ */
+  .social-proof-2 {
+    background: var(--green);
+    padding: 80px 0;
+  }
+
+  .social-proof-2__inner {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 0 24px;
+    text-align: center;
+  }
+
+  .social-proof-2__quote {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: clamp(22px, 3vw, 32px);
+    color: var(--white);
+    line-height: 1.5;
+    margin-bottom: 32px;
+    font-weight: 300;
+  }
+
+  .social-proof-2__stat {
+    display: inline-flex;
+    align-items: center;
+    gap: 24px;
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 60px;
+    padding: 16px 32px;
+  }
+
+  .stat-item {
+    text-align: center;
+  }
+
+  .stat-item__number {
+    font-family: 'Fraunces', serif;
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--gold);
+    line-height: 1;
+  }
+
+  .stat-item__label {
+    font-size: 12px;
+    color: rgba(255,255,255,0.7);
+    margin-top: 4px;
+  }
+
+  .stat-divider {
+    width: 1px;
+    height: 36px;
+    background: rgba(255,255,255,0.2);
+  }
+
+  /* ══════════════════════════════════════
+     9. CTA SECTION
+  ══════════════════════════════════════ */
+  .cta-section {
+    background: var(--offwhite);
+    padding: 96px 0;
+  }
+
+  .cta-section__inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: center;
+  }
+
+  .cta-section__image {
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 32px 80px rgba(22,50,79,0.2);
+    transition: transform 0.4s ease;
+  }
+
+  .cta-section__image:hover { transform: translateY(-6px); }
+
+  .cta-section__image img {
+    width: 100%;
+    display: block;
+  }
+
+  .cta-section__copy {}
+
+  .cta-section__headline {
+    font-size: clamp(28px, 3.5vw, 40px);
+    color: var(--navy);
+    margin-bottom: 20px;
+    font-weight: 700;
+    line-height: 1.2;
+  }
+
+  .cta-section__text {
+    font-size: 16px;
+    line-height: 1.8;
+    color: var(--text-mid);
+    margin-bottom: 36px;
+  }
+
+  .price-block {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 32px;
+  }
+
+  .price-block__left {
+    display: flex;
+    align-items: baseline;
+    gap: 6px;
+    flex-shrink: 0;
+  }
+
+  .price-block__currency {
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--navy);
+  }
+
+  .price-block__amount {
+    font-family: 'Fraunces', serif;
+    font-size: 52px;
+    font-weight: 700;
+    color: var(--navy);
+    line-height: 1;
+  }
+
+  .price-block__note {
+    font-size: 13px;
+    color: var(--text-mid);
+    line-height: 1.65;
+    border-left: 2px solid var(--greige);
+    padding-left: 14px;
+  }
+
+  @media (max-width: 480px) {
+    .price-block {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 8px;
+    }
+    .price-block__note {
+      border-left: none;
+      padding-left: 0;
+      border-top: 1px solid var(--greige);
+      padding-top: 8px;
+    }
+    .price-block__amount {
+      font-size: 44px;
+    }
+  }
+
+  .cta-section .btn-primary {
+    width: 100%;
+    font-size: 17px;
+    padding: 20px 40px;
+    border-radius: 6px;
+    margin-bottom: 20px;
+  }
+
+  .cta-trust {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .cta-trust__item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    color: var(--text-mid);
+  }
+
+  .cta-trust__check {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: rgba(63,107,79,0.15);
+    color: var(--green);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+    flex-shrink: 0;
+  }
+
+  /* ══════════════════════════════════════
+     10. FOOTER
+  ══════════════════════════════════════ */
+  .footer {
+    background: var(--navy-deep);
+    padding: 40px 0;
+    text-align: center;
+  }
+
+  .footer__text {
+    font-size: 13px;
+    color: rgba(255,255,255,0.35);
+    line-height: 1.8;
+  }
+
+  /* ══════════════════════════════════════
+     BONUS CARDS
+  ══════════════════════════════════════ */
+  .bonus-cards {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr 1fr 1fr;
+    gap: 16px;
+    align-items: stretch;
+    margin-top: 8px;
+  }
+
+  .bonus-card {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 12px;
+    padding: 28px 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    transition: background 0.3s, border-color 0.3s, transform 0.3s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .bonus-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(200,150,78,0.04) 0%, transparent 60%);
+    pointer-events: none;
+  }
+
+  .bonus-card--featured {
+    background: rgba(200,150,78,0.1);
+    border-color: rgba(200,150,78,0.35);
+  }
+
+  .bonus-card--featured::before {
+    background: linear-gradient(135deg, rgba(200,150,78,0.12) 0%, transparent 60%);
+  }
+
+  .bonus-card:hover {
+    background: rgba(255,255,255,0.1);
+    border-color: rgba(200,150,78,0.4);
+    transform: translateY(-4px);
+  }
+
+  .bonus-card__badge {
+    display: inline-flex;
+    align-items: center;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--gold);
+    background: rgba(200,150,78,0.15);
+    border: 1px solid rgba(200,150,78,0.3);
+    padding: 3px 10px;
+    border-radius: 20px;
+    width: fit-content;
+  }
+
+  .bonus-card__badge--bonus {
+    color: rgba(255,255,255,0.6);
+    background: rgba(255,255,255,0.07);
+    border-color: rgba(255,255,255,0.15);
+  }
+
+  .bonus-card__icon {
+    font-size: 28px;
+    margin: 4px 0;
+  }
+
+  .bonus-card__title {
+    font-family: 'Fraunces', serif;
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--white);
+    line-height: 1.3;
+  }
+
+  .bonus-card__desc {
+    font-size: 13px;
+    line-height: 1.65;
+    color: rgba(255,255,255,0.55);
+  }
+
+  @media (max-width: 768px) {
+    .bonus-cards {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .bonus-cards {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  /* ══════════════════════════════════════
+     11. STICKY CTA (All Devices)
+  ══════════════════════════════════════ */
+  .sticky-cta {
+    display: block;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: var(--navy);
+    padding: 12px 20px;
+    border-top: 1px solid rgba(255,255,255,0.1);
+    z-index: 100;
+    transform: translateY(100%);
+    transition: transform 0.4s ease;
+    box-shadow: 0 -8px 32px rgba(0,0,0,0.3);
+  }
+
+  .sticky-cta.visible { transform: translateY(0); }
+
+  .sticky-cta__inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+  }
+
+  .sticky-cta__info {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+  }
+
+  .sticky-cta__label {
+    font-size: 13px;
+    font-weight: 600;
+    color: rgba(255,255,255,0.6);
+    letter-spacing: 0.02em;
+  }
+
+  .sticky-cta__price {
+    font-family: 'Fraunces', serif;
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--gold);
+    line-height: 1;
+  }
+
+  .sticky-cta__btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--gold);
+    color: var(--navy-deep);
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    padding: 14px 28px;
+    border-radius: 4px;
+    text-decoration: none;
+    white-space: nowrap;
+    transition: background 0.2s, transform 0.2s;
+    animation: pulse-glow 2.8s ease-in-out infinite;
+    flex-shrink: 0;
+  }
+
+  .sticky-cta__btn:hover {
+    background: var(--gold-light);
+    transform: translateY(-1px);
+  }
+
+  @media (max-width: 600px) {
+    .sticky-cta__inner {
+      flex-direction: column;
+      gap: 10px;
+    }
+    .sticky-cta__info { align-items: center; text-align: center; }
+    .sticky-cta__btn { width: 100%; justify-content: center; }
+  }
+
+  /* ══════════════════════════════════════
+     RESPONSIVE — MOBILE
+  ══════════════════════════════════════ */
+  @media (max-width: 768px) {
+    .hero {
+      grid-template-columns: 1fr;
+      min-height: auto;
+    }
+
+    .hero__image {
+      height: 55vw;
+      order: -1;
+    }
+
+    .hero__image::after {
+      background: linear-gradient(to top, var(--navy) 0%, transparent 40%);
+    }
+
+    .hero__copy {
+      padding: 40px 24px 56px;
+    }
+
+    .hero__sub { max-width: 100%; }
+
+    .btn-primary { width: 100%; }
+
+    .problem__inner {
+      grid-template-columns: 1fr;
+    }
+
+    .problem__image {
+      height: 280px;
+    }
+
+    .problem__image::after {
+      background: linear-gradient(to top, var(--offwhite) 0%, transparent 40%);
+    }
+
+    .problem__copy {
+      padding: 48px 24px;
+    }
+
+    .testimonials-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .checklist-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .mockup-stack {
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .mockup-cover--bonus { transform: translateY(0); }
+
+    .steps {
+      grid-template-columns: 1fr;
+      gap: 40px;
+    }
+
+    .steps::before { display: none; }
+
+    .cta-section__inner {
+      grid-template-columns: 1fr;
+      gap: 40px;
+    }
+
+    .cta-section__image { order: -1; }
+
+    .cta-section .btn-primary {
+      font-size: 15px;
+      padding: 16px 24px;
+    }
+
+    .price-block__amount { font-size: 44px; }
+
+    .social-proof-2__stat {
+      flex-direction: column;
+      gap: 16px;
+      border-radius: 16px;
+    }
+
+    .stat-divider {
+      width: 60px;
+      height: 1px;
+    }
+  }
+
+  /* Scrollbar */
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: var(--offwhite); }
+  ::-webkit-scrollbar-thumb { background: var(--navy); border-radius: 3px; }
+</style>
+</head>
+<body>
+
+<!-- ══ HERO ══ -->
+<section class="hero">
+  <div class="hero__copy">
+    <div class="hero__eyebrow">Blueprint Pindah Kerja Strategis</div>
+    <h1 class="hero__headline">
+      Pindah Kantor<br>
+      <em>Tanpa Panik</em>
+    </h1>
+    <p class="hero__sub">
+      Dalam 7 hari, kamu punya peta lengkap: tahu kapan waktunya pindah, CV yang lebih rapi, target apply yang jelas, dan script siap pakai untuk interview & negosiasi — sebelum kamu resign sepatah kata pun.
+    </p>
+    <div class="hero__cta-wrap">
+      <a href="#cta" class="btn-primary">
+        Ya, Saya Mau Pindah Lebih Aman
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12,5 19,12 12,19"/></svg>
+      </a>
+      <div class="hero__trust">
+        <div class="hero__trust-item">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          Akses Seumur Hidup
+        </div>
+        <div class="hero__trust-item">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          Sekali Bayar
+        </div>
+        <div class="hero__trust-item">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          PDF + Bonus Toolkit
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="hero__image">
+    <img src="https://drive.google.com/thumbnail?id=17dHG5Uug3eAU-I6KdFYUjnsclMxaxlyw&sz=w1200" alt="Profesional muda menatap kota dengan tenang dan percaya diri">
+  </div>
+</section>
+
+<!-- ══ PROBLEM AGITATION ══ -->
+<section class="problem">
+  <div class="problem__inner">
+    <div class="problem__image">
+      <img src="https://drive.google.com/thumbnail?id=1ZYCmkQ8eU2tcbQSmsJZE1k2fFr0_D08k&sz=w1200" alt="Karyawan jenuh di depan laptop di kantor">
+    </div>
+    <div class="problem__copy">
+      <div class="section-label section-label--navy reveal">Kamu Kenal Rasanya</div>
+      <h2 class="problem__headline reveal reveal-delay-1">
+        Sudah Tahu Harus Pindah.<br>Tapi Belum Tahu Harus Mulai Dari Mana.
+      </h2>
+      <p class="problem__text reveal reveal-delay-2">
+        Tiap pagi berangkat kerja dengan perasaan yang sama — campur antara capek, bosen, dan sedikit harapan yang makin tipis. Kamu sudah coba bertahan. Sudah coba lihat sisi baiknya.
+      </p>
+      <p class="problem__text reveal reveal-delay-3">
+        <strong>CV-mu terakhir diupdate entah kapan.</strong> Kamu nggak tahu value dirimu dihargai berapa di luar sana. Takut resign duluan terus nganggur. Takut apply ke kantor baru yang ternyata sama aja. Takut negosiasi, takut offer-nya malah ditarik.
+      </p>
+      <p class="problem__text reveal reveal-delay-3">
+        Akhirnya? Kamu stay. Bukan karena betah — tapi karena belum siap.
+      </p>
+      <div class="problem__quote reveal reveal-delay-4">
+        <p>"Yang jadi masalah bukan kamu kurang berani. Masalahnya kamu belum punya strateginya."</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ REFRAME ══ -->
+<section class="reframe">
+  <div class="reframe__inner">
+    <div class="section-label section-label--gold reveal" style="justify-content:center;">Reframe</div>
+    <h2 class="reframe__headline reveal reveal-delay-1">
+      Pindah yang aman bukan soal <em>nekat resign.</em>
+    </h2>
+    <p class="reframe__text reveal reveal-delay-2">
+      Pindah yang aman dimulai dari diagnosis yang tepat, value diri yang dikemas dengan benar, dan langkah yang jelas sebelum kamu kirim surat resign.
+    </p>
+    <p class="reframe__text reveal reveal-delay-2">
+      Bukan asal apply ke mana-mana sambil harap-harap cemas. Itu bukan strategi — itu gambling.
+    </p>
+    <div class="reframe__divider reveal reveal-delay-3"></div>
+    <p class="reframe__callout reveal reveal-delay-4">
+      Bayangkan kamu tidak lagi menebak-nebak. Kamu tahu tanda-tandanya, tahu <strong>value yang bisa kamu jual</strong>, tahu cara merapikan CV, tahu strategi apply, dan tahu apa yang harus dicek sebelum menerima offer.
+    </p>
+  </div>
+</section>
+
+<!-- ══ SOCIAL PROOF 1 ══ -->
+<section class="social-proof">
+  <div class="container">
+    <div class="social-proof__header">
+      <div class="section-label section-label--navy reveal" style="justify-content:center;">Apa Kata Mereka</div>
+      <h2 class="social-proof__title reveal reveal-delay-1">Inilah yang Terjadi Setelah Mereka Pakai Blueprint Ini</h2>
+      <p class="social-proof__subtitle reveal reveal-delay-2">Bukan janji — ini hasil nyata dari mereka yang dulunya ada di posisi yang sama.</p>
+    </div>
+    <div class="testimonials-grid">
+      <div class="testimonial-card reveal">
+        <p class="testimonial-card__text">
+          Kirain isinya motivasi resign biasa. Tapi bagian Career Value Audit beneran ngena — untuk pertama kalinya aku bisa jelasin ke diri sendiri apa yang sebenernya aku bawa ke meja negosiasi.
+        </p>
+        <div class="testimonial-card__meta">
+          <div class="testimonial-card__avatar">R</div>
+          <div>
+            <div class="testimonial-card__name">Reza A.</div>
+            <div class="testimonial-card__role">Marketing Executive, Jakarta</div>
+            <div class="testimonial-card__result">✓ Dapat offer +30% dari gaji lama</div>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial-card reveal reveal-delay-1">
+        <p class="testimonial-card__text">
+          Script negosiasi di dalamnya bikin aku nggak gemetar lagi waktu recruiter nanya soal expected salary. Aku bisa jawab dengan tenang. Bukan asal-asalan.
+        </p>
+        <div class="testimonial-card__meta">
+          <div class="testimonial-card__avatar">S</div>
+          <div>
+            <div class="testimonial-card__name">Sinta P.</div>
+            <div class="testimonial-card__role">HR Generalist, Bandung</div>
+            <div class="testimonial-card__result">✓ Lolos 2 interview dalam seminggu</div>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial-card reveal reveal-delay-2">
+        <p class="testimonial-card__text">
+          Udah 2 tahun ngerasa stuck. Setelah ngisi Kantor Layak atau Tidak Checklist, jawabannya jadi jernih. Aku akhirnya bisa jawab: sebenernya aku mau pindah karena apa.
+        </p>
+        <div class="testimonial-card__meta">
+          <div class="testimonial-card__avatar">D</div>
+          <div>
+            <div class="testimonial-card__name">Dimas W.</div>
+            <div class="testimonial-card__role">Product Specialist, Surabaya</div>
+            <div class="testimonial-card__result">✓ Resign dengan rencana yang jelas</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ WHAT YOU GET ══ -->
+<section class="what-you-get">
+  <div class="container">
+    <div class="what-you-get__header">
+      <div class="section-label section-label--gold reveal" style="justify-content:center;">Yang Kamu Dapat</div>
+      <h2 class="what-you-get__title reveal reveal-delay-1">Bukan Ebook Motivasi.<br>Ini Toolkit Keputusan.</h2>
+      <p class="what-you-get__subtitle reveal reveal-delay-2">Semua yang kamu butuhkan untuk pindah kerja dengan lebih aman, rapi, dan strategis.</p>
+    </div>
+
+    <div class="checklist-grid">
+      <div class="checklist-item reveal">
+        <div class="checklist-item__icon">✓</div>
+        <div>
+          <div class="checklist-item__title">Kantor Layak atau Tidak Checklist</div>
+          <div class="checklist-item__desc">15 tanda yang bantu kamu putuskan: bertahan, evaluasi, atau saatnya cari opsi baru.</div>
+        </div>
+      </div>
+      <div class="checklist-item reveal reveal-delay-1">
+        <div class="checklist-item__icon">✓</div>
+        <div>
+          <div class="checklist-item__title">Career Value Audit</div>
+          <div class="checklist-item__desc">Temukan skill & pengalaman yang bisa dijual, bukan cuma didaftar di CV.</div>
+        </div>
+      </div>
+      <div class="checklist-item reveal reveal-delay-1">
+        <div class="checklist-item__icon">✓</div>
+        <div>
+          <div class="checklist-item__title">CV Rewrite Template</div>
+          <div class="checklist-item__desc">Ubah "membuat laporan mingguan" jadi kalimat yang terlihat bernilai di mata recruiter.</div>
+        </div>
+      </div>
+      <div class="checklist-item reveal reveal-delay-2">
+        <div class="checklist-item__icon">✓</div>
+        <div>
+          <div class="checklist-item__title">Target Company Filter</div>
+          <div class="checklist-item__desc">Supaya kamu nggak masuk ke masalah yang sama di kantor baru.</div>
+        </div>
+      </div>
+      <div class="checklist-item reveal reveal-delay-2">
+        <div class="checklist-item__icon">✓</div>
+        <div>
+          <div class="checklist-item__title">Interview Script Bank</div>
+          <div class="checklist-item__desc">Termasuk cara jawab "kenapa mau pindah?" tanpa jelek-jelekin kantor lama.</div>
+        </div>
+      </div>
+      <div class="checklist-item reveal reveal-delay-3">
+        <div class="checklist-item__icon">✓</div>
+        <div>
+          <div class="checklist-item__title">Negotiation Mini Script</div>
+          <div class="checklist-item__desc">Script sederhana yang bikin kamu nggak langsung terima angka pertama.</div>
+        </div>
+      </div>
+      <div class="checklist-item reveal reveal-delay-3" style="grid-column: 1 / -1; max-width: 540px; margin: 0 auto; width: 100%;">
+        <div class="checklist-item__icon">✓</div>
+        <div>
+          <div class="checklist-item__title">7-Day Pindah Aman Plan</div>
+          <div class="checklist-item__desc">Action plan harian dari diagnosis sampai exit plan — selesai dalam seminggu.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- BONUS CARDS -->
+    <div class="mockup-section">
+      <div class="mockup-label reveal">Termasuk 3 Bonus Toolkit — Langsung Bisa Dipakai</div>
+      <div class="bonus-cards reveal reveal-delay-1">
+        <div class="bonus-card bonus-card--featured">
+          <div class="bonus-card__badge">eBook Utama</div>
+          <div class="bonus-card__icon">📘</div>
+          <div class="bonus-card__title">Pindah Kantor Tanpa Panik</div>
+          <div class="bonus-card__desc">Blueprint lengkap dari diagnosis sampai negosiasi — sebelum kamu resign.</div>
+        </div>
+        <div class="bonus-card">
+          <div class="bonus-card__badge bonus-card__badge--bonus">Bonus 1</div>
+          <div class="bonus-card__icon">🗓️</div>
+          <div class="bonus-card__title">7-Day Pindah Aman Plan</div>
+          <div class="bonus-card__desc">Action plan harian siap eksekusi dari hari pertama sampai hari ketujuh.</div>
+        </div>
+        <div class="bonus-card">
+          <div class="bonus-card__badge bonus-card__badge--bonus">Bonus 2</div>
+          <div class="bonus-card__icon">🎯</div>
+          <div class="bonus-card__title">Career Exit Clarity Toolkit</div>
+          <div class="bonus-card__desc">Checklist, scorecard, dan worksheet untuk keputusan pindah yang lebih jernih.</div>
+        </div>
+        <div class="bonus-card">
+          <div class="bonus-card__badge bonus-card__badge--bonus">Bonus 3</div>
+          <div class="bonus-card__icon">⚡</div>
+          <div class="bonus-card__title">Job Move Execution Kit</div>
+          <div class="bonus-card__desc">Template CV, script interview, formula negosiasi, dan checklist resign.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ HOW IT WORKS ══ -->
+<section class="how-it-works">
+  <div class="container">
+    <div class="how-it-works__header">
+      <div class="section-label section-label--green reveal" style="justify-content:center;">Cara Kerjanya</div>
+      <h2 class="how-it-works__title reveal reveal-delay-1">Semudah 3 Langkah</h2>
+      <p class="how-it-works__subtitle reveal reveal-delay-2">Dari bingung sampai punya rencana — dalam waktu yang lebih singkat dari yang kamu bayangkan.</p>
+    </div>
+    <div class="steps">
+      <div class="step reveal">
+        <div class="step__number">1</div>
+        <div class="step__icon">🔍</div>
+        <div class="step__title">Diagnose</div>
+        <p class="step__desc">Cek kondisi kantor sekarang dan kesiapan kamu pindah. Dalam 20 menit, kamu sudah punya jawaban yang jelas.</p>
+      </div>
+      <div class="step reveal reveal-delay-2">
+        <div class="step__number">2</div>
+        <div class="step__icon">✏️</div>
+        <div class="step__title">Prepare</div>
+        <p class="step__desc">Rapikan CV, temukan value diri, dan siapkan script interview serta negosiasi sebelum kamu mulai apply.</p>
+      </div>
+      <div class="step reveal reveal-delay-4">
+        <div class="step__number">3</div>
+        <div class="step__icon">🚀</div>
+        <div class="step__title">Execute</div>
+        <p class="step__desc">Apply lebih terarah, nego lebih percaya diri, dan resign lebih aman dengan exit plan yang sudah kamu siapkan.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ SOCIAL PROOF 2 ══ -->
+<section class="social-proof-2">
+  <div class="social-proof-2__inner">
+    <p class="social-proof-2__quote reveal">
+      "Lebih dari ratusan karyawan yang beli ini bilang hal yang sama: <strong style="font-style:normal;font-weight:700;color:var(--gold)">harusnya ini aku baca sebelum resign yang kemarin."</strong>
+    </p>
+    <div class="social-proof-2__stat reveal reveal-delay-2">
+      <div class="stat-item">
+        <div class="stat-item__number">7 hari</div>
+        <div class="stat-item__label">Action plan selesai</div>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat-item">
+        <div class="stat-item__number">60 mnt</div>
+        <div class="stat-item__label">Baca & langsung action</div>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat-item">
+        <div class="stat-item__number">1x bayar</div>
+        <div class="stat-item__label">Akses seumur hidup</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ CTA SECTION ══ -->
+<section class="cta-section" id="cta">
+  <div class="container">
+    <div class="cta-section__inner">
+      <div class="cta-section__image reveal">
+        <img src="https://drive.google.com/thumbnail?id=1IV-1RVtrDkrwfaQlkLfQ3CxB7sO0kyhW&sz=w1200" alt="Pindah Kantor Tanpa Panik - Mockup Produk">
+      </div>
+      <div class="cta-section__copy">
+        <div class="section-label section-label--navy reveal">Ambil Sekarang</div>
+        <h2 class="cta-section__headline reveal reveal-delay-1">
+          Kalau kamu masih di kantor yang sama 6 bulan lagi — bukan karena pilihan, tapi karena belum siap — itu bisa dicegah sekarang.
+        </h2>
+        <p class="cta-section__text reveal reveal-delay-2">
+          Lebih murah dari satu kali makan siang di mal. Tapi bisa mengubah arah karier kamu untuk tahun-tahun ke depan.
+        </p>
+        <div class="price-block reveal reveal-delay-2">
+          <div class="price-block__left">
+            <div class="price-block__currency">Rp</div>
+            <div class="price-block__amount">178.000</div>
+          </div>
+          <div class="price-block__note">Sekali bayar<br>Akses seumur hidup</div>
+        </div>
+        <a href="#" class="btn-primary reveal reveal-delay-3">
+          Dapatkan Pindah Kantor Tanpa Panik
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12,5 19,12 12,19"/></svg>
+        </a>
+        <div class="cta-trust reveal reveal-delay-4">
+          <div class="cta-trust__item">
+            <div class="cta-trust__check">✓</div>
+            Akses langsung setelah pembayaran
+          </div>
+          <div class="cta-trust__item">
+            <div class="cta-trust__check">✓</div>
+            Bisa dibaca dari HP atau laptop
+          </div>
+          <div class="cta-trust__item">
+            <div class="cta-trust__check">✓</div>
+            Tanpa biaya bulanan
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ FOOTER ══ -->
+<footer class="footer">
+  <div class="container">
+    <p class="footer__text">
+      © 2025 Pindah Kantor Tanpa Panik. Semua hak dilindungi.<br>
+      Produk digital — tidak ada pengembalian fisik. Pembayaran aman & terenkripsi.
+    </p>
+  </div>
+</footer>
+
+<!-- ══ STICKY CTA (All Devices) ══ -->
+<div class="sticky-cta" id="stickyCta">
+  <div class="sticky-cta__inner">
+    <div class="sticky-cta__info">
+      <span class="sticky-cta__label">Pindah Kantor Tanpa Panik</span>
+      <span class="sticky-cta__price">Rp178.000 — Sekali Bayar</span>
+    </div>
+    <a href="#cta" class="sticky-cta__btn">
+      Dapatkan Sekarang
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12,5 19,12 12,19"/></svg>
+    </a>
+  </div>
+</div>
+
+<script>
+  // ── Intersection Observer for reveal animations
+  const revealEls = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+
+  revealEls.forEach(el => observer.observe(el));
+
+  // ── Sticky CTA on mobile
+  const stickyCta = document.getElementById('stickyCta');
+  let lastScroll = 0;
+
+  window.addEventListener('scroll', () => {
+    const scrollY = window.scrollY;
+    if (scrollY > 400) {
+      stickyCta.classList.add('visible');
+    } else {
+      stickyCta.classList.remove('visible');
+    }
+    lastScroll = scrollY;
+  });
+
+  // ── Smooth scroll for anchor links
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      const target = document.querySelector(a.getAttribute('href'));
+      if (target) {
+        e.preventDefault();
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    });
+  });
+</script>
+</body>
+</html>
